@@ -1,4 +1,4 @@
-# Secure FIle Transfer Using UDP (with Huffman encoding and AES encryptio)
+# Secure FIle Transfer Using UDP (with Huffman encoding and AES encryption)
 
 usage server.py
 
