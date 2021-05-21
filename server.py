@@ -8,7 +8,7 @@ global prime, root
 if __name__ == "__main__":
     host = "127.0.0.1"
     port = 4455
-
+    addr = (host, port)
     """ Creating the UDP socket """
     server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -30,15 +30,12 @@ if __name__ == "__main__":
     mySharedKey = (clientPublicKey ** mySecretNumber) % prime
     print("server shared Key", mySharedKey)
 
-
     def retriveFile(filename):
         print(filename, "exists")
         server.sendto(("EXISTS " +str(os.path.getsize(filename))).encode("utf-8"), addr)
         with open(filename, 'rb') as f:
             bytesToSend = f.read(1024)
             server.sendto(bytesToSend, addr)
-            bytesToSend= bytesToSend.decode("utf-8")
-            print("sendiong", bytesToSend)
             while(bytesToSend):
                 print("sending", bytesToSend)
                 bytesToSend = f.read(1024)
@@ -47,6 +44,11 @@ if __name__ == "__main__":
                 
         # print("closing") 
         # server.close()
+
+    def sendPublicKey():
+        print("Sending Public key")
+        keyInfo = 'KEY ' + str(myPublicKey)
+        server.sendto(keyInfo.encode("utf-8"), addr)
     while True:
         data, addr = server.recvfrom(1024)
         data = data.decode("utf-8")
@@ -62,9 +64,10 @@ if __name__ == "__main__":
 
         # deffie hellman
 
+        if(data=="KEY"):
+            sendPublicKey()
+        else:
+
         # File retrive and send
-        retriveFile(data)
+            retriveFile(data)
         # server.close()
-        # data = data.upper()
-        # data = data.encode("utf-8")
-        # server.sendto(data, addr)
