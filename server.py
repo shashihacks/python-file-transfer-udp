@@ -7,6 +7,7 @@ from Crypto.Cipher import AES
 from huffman import HuffmanCoding
 import sys
 
+import os.path
 
 
 host = "127.0.0.1"
@@ -34,7 +35,7 @@ mySharedKey = (clientPublicKey ** mySecretNumber) % prime
 print("server shared Key", mySharedKey)
 
 def retriveFile(filename):
-    print(filename, "exists")
+    print("checking", os.path.exists(filename))
     server.sendto(("EXISTS " +str(os.path.getsize(filename))).encode("utf-8"), addr)
     with open(filename, 'rb') as f:
         bytesToSend = f.read(1024)
@@ -69,8 +70,8 @@ while True:
 
     if(data=="KEY"):
         sendPublicKey()
+    elif(os.path.exists(data)):
+            retriveFile(data)
     else:
-
-    # File retrive and send
-        retriveFile(data)
+        server.sendto("!EXISTS".encode("utf-8"), addr)
     # server.close()

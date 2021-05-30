@@ -72,7 +72,7 @@ while True:
 
         f.close()
         # client.close()
-    else:
+    elif(data=='!EXISTS'):
         print("file does'nt exist")
 # client.close()
 
