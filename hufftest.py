@@ -6,6 +6,8 @@ path = "a.txt"
 h = HuffmanCoding(path)
 
 output_path = h.compress()
+# encrypt here 
+
 print("Compressed file path: " + output_path)
 
 decom_path = h.decompress(output_path)
