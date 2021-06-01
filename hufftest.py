@@ -49,5 +49,5 @@ newFile.close()
 # f.write(original_data)
 # f.close()
 
-decom_path = h.decompress(output_path)
+decom_path = h.decompress('dec.bin')
 print("Decompressed file path: " + decom_path)
