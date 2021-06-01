@@ -123,7 +123,7 @@ class HuffmanCoding:
 			output.write(bytes(b))
 
 		print("Compressed")
-		return output_path
+		return b
 
 
 	""" functions for decompression: """
@@ -156,7 +156,7 @@ class HuffmanCoding:
 		filename, file_extension = os.path.splitext(self.path)
 		output_path = filename + "_decompressed" + ".txt"
 
-		with open(input_path, 'rb') as file, open(output_path, 'w') as output:
+		with open('dec.bin', 'rb') as file, open(output_path, 'w') as output:
 			bit_string = ""
 
 			byte = file.read(1)
